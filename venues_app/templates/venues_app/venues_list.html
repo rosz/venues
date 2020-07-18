@@ -1,1 +1,10 @@
-todo
+{% extends 'venues_app/base.html' %}
+
+{% block content %}
+    {% for venue in venues %}
+        <div class="venue">
+            <h1><a href="{% url 'venue' pk=venue.pk %}">{{ venue.name }}</a></h1>
+            <p>{{ venue.description|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
