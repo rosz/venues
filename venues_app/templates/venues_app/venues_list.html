@@ -4,6 +4,9 @@
     {% for venue in venues %}
         <div class="venue">
             <h1><a href="{% url 'venue' pk=venue.pk %}">{{ venue.name }}</a></h1>
+            <p>{{ venue.avg_rating|linebreaksbr }}</p>
+            <p>{{ venue.address|linebreaksbr }}</p>
+            <p>{{ venue.image|linebreaksbr }}</p>
             <p>{{ venue.description|linebreaksbr }}</p>
         </div>
     {% endfor %}

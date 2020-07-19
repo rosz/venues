@@ -3,6 +3,9 @@
 {% block content %}
     <div class="venue">
         <h2>{{ venue.name }}</h2>
+        <p>{{ venue.avg_rating|linebreaksbr }}</p>
+        <p>{{ venue.address|linebreaksbr }}</p>
+        <p>{{ venue.image|linebreaksbr }}</p>
         <p>{{ venue.description|linebreaksbr }}</p>
     </div>
 {% endblock %}
