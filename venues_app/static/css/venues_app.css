@@ -24,10 +24,6 @@ h1, h2, h3, h4 {
     font-family: 'Lobster', cursive;
 }
 
-.date {
-    color: #828282;
-}
-
 .save {
     float: right;
 }
@@ -53,4 +49,22 @@ h1, h2, h3, h4 {
 
 body {
     padding-left: 15px;
+}
+
+.step-links a {
+    color: #C25100;
+}
+
+.pagination {
+    color: #000000;
+}
+
+.search-table label {
+    color: #ffffff;
+    font-family: 'Lobster', cursive;
+    font-size: 15px;
+}
+
+#venue_name {
+    margin-left: 10px;
 }
