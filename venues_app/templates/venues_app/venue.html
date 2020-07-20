@@ -3,9 +3,27 @@
 {% block content %}
     <div class="venue">
         <h2>{{ venue.name }}</h2>
-        <p>{{ venue.avg_rating|linebreaksbr }}</p>
-        <p>{{ venue.address|linebreaksbr }}</p>
-        <p>{{ venue.image|linebreaksbr }}</p>
-        <p>{{ venue.description|linebreaksbr }}</p>
+        <p>Ocena użytkowników: {{ venue.avg_rating }}</p>
+        <p>Adres: {{ venue.address }}</p>
+        <img src=" {{ venue.image.url }}" alt="Nie dysponujemy zdjęciem lokalu, zapoznaj się z opisem.">
+        <p>Opis: {{ venue.description|linebreaksbr }}</p>
+        {% if not user.is_authenticated %}
+        <p><a href="{% url 'login' %}">Zaloguj się, żeby ocenić restaurację</a></p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+<form url="{% url 'rate' venue.pk %}" method="POST">
+    {% csrf_token %}
+    <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit">Oceń</button>
+        <select name="rate" class="btn btn-outline-info">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </form>
+        {% endif %}
+
     </div>
 {% endblock %}

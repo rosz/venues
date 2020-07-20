@@ -1,0 +1,12 @@
+{% extends 'venues_app/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+            <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit">Login</button>
+        </form>
+        Jeśli nie masz konta, <a href="/register" target="blank"><strong>zarejestruj się</strong></a>.
+    </div>
+{% endblock content %}

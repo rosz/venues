@@ -1,13 +1,28 @@
 {% extends 'venues_app/base.html' %}
 
 {% block content %}
-    {% for venue in venues %}
+    {% for venue in page_obj %}
         <div class="venue">
             <h1><a href="{% url 'venue' pk=venue.pk %}">{{ venue.name }}</a></h1>
-            <p>{{ venue.avg_rating|linebreaksbr }}</p>
-            <p>{{ venue.address|linebreaksbr }}</p>
-            <p>{{ venue.image|linebreaksbr }}</p>
-            <p>{{ venue.description|linebreaksbr }}</p>
+            <p>Ocena użytkowników: {{ venue.avg_rating }}</p>
+            <p>Adres: {{ venue.address }}</p>
+            <img src=" {{ venue.image.url }}" alt="Nie dysponujemy zdjęciem lokalu, zapoznaj się z opisem.">
+            <p>Opis: {{ venue.description|linebreaksbr }}</p>
         </div>
     {% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; pierwsza strona</a>
+            <a href="?page={{ page_obj.previous_page_number }}">poprzednie</a>
+        {% endif %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">następne</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia strona &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}

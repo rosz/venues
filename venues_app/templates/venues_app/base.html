@@ -9,7 +9,40 @@
     </head>
 <body>
     <div class="page-header">
-        <h1><a href="/">Przeglądaj i ceniaj restauracje</a></h1>
+        <h1><a href="/">Przeglądaj i oceniaj restauracje</a></h1>
+        <div>
+            <form id="search_name" method="get"
+                  action="">
+                {% csrf_token %}
+                <table class="search-table">
+                    <tr>
+                        <td><label for="venue_name">Wyszukaj po nazwie</label>
+                        </td>
+                        <td><input id="venue_name" name="search_name"
+                                   type="text" class="form-control">
+                        </td>
+                    </tr>
+                </table>
+                <table class="search-table">
+                {% if not user.is_authenticated %}
+                                        <td><label for="venue_name">
+
+                                            <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit"><a href="/login">Zaloguj</a></button>
+                    <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit"><a href="/register">Zarejestruj</a></button>
+                                            </label>
+
+                                            {% endif %}
+                    {% if user.is_authenticated %}
+                    <td><label for="venue_name">
+                    <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit"><a href="/logout">Wyloguj</a></button>
+                    {% endif %}
+                        </label>
+                    </td>
+                </table>
+
+            </form>
+
+        </div>
     </div>
     <div class="content container">
         <div class="row">

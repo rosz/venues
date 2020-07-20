@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Venue, User, Rating
+from .models import Venue, Rating
 
 
 @admin.register(Venue)
@@ -32,6 +32,11 @@ class RatingAdmin(admin.ModelAdmin):
     search_fields = ('user', 'venue')
     ordering = ('user',)
     readonly_fields = ('user', 'venue', 'rate')
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.user = request.user
+        obj.save()
 
     def has_change_permission(self, request, obj=None):
         return False
