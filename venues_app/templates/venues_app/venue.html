@@ -8,11 +8,11 @@
         <img src=" {{ venue.image.url }}" alt="Nie dysponujemy zdjęciem lokalu, zapoznaj się z opisem.">
         <p>Opis: {{ venue.description|linebreaksbr }}</p>
         {% if not user.is_authenticated %}
-        <p><a href="{% url 'login' %}">Zaloguj się, żeby ocenić restaurację</a></p>
+        <p><a style="color:black" href="{% url 'login' %}">Zaloguj się, żeby ocenić restaurację</a></p>
         {% endif %}
 
         {% if user.is_authenticated %}
-<form url="{% url 'rate' venue.pk %}" method="POST">
+<form action="{% url 'rate' venue.pk %}" method="POST">
     {% csrf_token %}
     <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit">Oceń</button>
         <select name="rate" class="btn btn-outline-info">
