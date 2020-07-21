@@ -7,6 +7,6 @@
         {{ form.as_p }}
             <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit">Login</button>
         </form>
-        Jeśli nie masz konta, <a style="color:black" href="/register" target="blank"><strong>zarejestruj się</strong></a>.
+        Jeśli nie masz konta, <a style="color:black" href="{% url 'register' %}" target="blank"><strong>zarejestruj się</strong></a>.
     </div>
 {% endblock content %}
