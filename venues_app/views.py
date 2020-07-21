@@ -10,16 +10,17 @@ from .forms import RatingForm
 
 
 def venues_list(request):
-    if request.method == 'GET':
-        name = request.GET.get('search_name')
-        if name is not None and len(name) > 2:
-            venues = Venue.objects.filter(name__icontains=name).order_by('created_at')
-            paginator = Paginator(venues, 3)
+    name = request.GET.get('search_name')
+    if name is not None and len(name) > 2:
+        venues = Venue.objects.filter(
+            name__icontains=name).order_by('created_at')
+        paginator = Paginator(venues, 3)
 
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            if page_obj is not None:
-                return render(request, 'venues_app/venues_list.html', {'page_obj': page_obj})
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        if page_obj is not None:
+            return render(request, 'venues_app/venues_list.html',
+                          {'page_obj': page_obj})
 
     venues = Venue.objects.order_by('created_at')
     paginator = Paginator(venues, 3)
@@ -27,38 +28,22 @@ def venues_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'venues_app/venues_list.html', {'page_obj': page_obj})
-
-
-@require_POST
-def rate(request, pk):
-    try:
-        venue_obj = get_object_or_404(Venue, id=pk)
-    except Exception:
-        return redirect("venues_list")
-    rating = Rating.objects.get_or_create(user=request.user, venue=venue_obj)[0]
-    form = RatingForm(instance=rating)
-
-    if form.is_valid():
-        print("abc")
-        form.save()
-        return redirect("venues_list")
-    else:
-        print(form.errors, "DUPA")
-        return redirect("venues_list")
+    return render(request, 'venues_app/venues_list.html',
+                  {'page_obj': page_obj})
 
 
 def venue(request, pk):
-    if request.method == 'GET':
-        name = request.GET.get('search_name')
-        if name is not None and len(name) > 2:
-            venues = Venue.objects.filter(name__icontains=name).order_by('created_at')
-            paginator = Paginator(venues, 3)
+    name = request.GET.get('search_name')
+    if name is not None and len(name) > 2:
+        venues = Venue.objects.filter(
+            name__icontains=name).order_by('created_at')
+        paginator = Paginator(venues, 3)
 
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            if page_obj is not None:
-                return render(request, 'venues_app/venues_list.html', {'page_obj': page_obj})
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        if page_obj is not None:
+            return render(request, 'venues_app/venues_list.html',
+                          {'page_obj': page_obj})
 
     venue = get_object_or_404(Venue, pk=pk)
     return render(request, 'venues_app/venue.html', {'venue': venue})
@@ -100,11 +85,22 @@ def register_request(request):
         else:
             for msg in form.error_messages:
                 print(form.error_messages[msg])
-            return render(request=request,
-                          template_name="venues_app/register.html",
-                          context={"form": form})
+            return render(request, "venues_app/register.html", {"form": form})
 
     form = UserCreationForm
-    return render(request=request,
-                  template_name="venues_app/register.html",
-                  context={"form": form})
+    return render(request, "venues_app/register.html", {"form": form})
+
+
+@require_POST
+def rate(request, pk):
+    venue_obj = get_object_or_404(Venue, id=pk)
+
+    rating = Rating.objects.get_or_create(
+        user=request.user, venue=venue_obj)[0]
+    form = RatingForm(request.POST, instance=rating)
+
+    if form.is_valid():
+        form.save()
+        return redirect("venues_list")
+    else:
+        return redirect("venues_list")
