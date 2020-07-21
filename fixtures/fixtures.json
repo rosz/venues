@@ -1,0 +1,214 @@
+[
+  {
+    "model": "venues_app.venue",
+    "pk": 1,
+    "fields": {
+      "name": "Testowa Nazwa Restauracji I",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, consequat vel aliquet in, laoreet sit amet orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porttitor velit quam, sagittis hendrerit ex vulputate eu. Praesent in quam augue. Curabitur luctus vitae justo sit amet facilisis.",
+      "image": "media/placeholder.jpeg",
+      "address": "Warszawa, ul. Przykładowa 1"
+    }
+  },
+  {
+    "model": "venues_app.venue",
+    "pk": 2,
+    "fields": {
+      "name": "Testowa Nazwa Restauracji II",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, consequat vel aliquet in, laoreet sit amet orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porttitor velit quam, sagittis hendrerit ex vulputate eu. Praesent in quam augue. Curabitur luctus vitae justo sit amet facilisis.",
+      "image": "media/placeholder.jpeg",
+      "address": "Warszawa, ul. Przykładowa 2"
+    }
+  },
+  {
+    "model": "venues_app.venue",
+    "pk": 3,
+    "fields": {
+      "name": "Testowa Nazwa Restauracji III",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, consequat vel aliquet in, laoreet sit amet orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porttitor velit quam, sagittis hendrerit ex vulputate eu. Praesent in quam augue. Curabitur luctus vitae justo sit amet facilisis.",
+      "image": "media/placeholder.jpeg",
+      "address": "Warszawa, ul. Przykładowa 3"
+    }
+  },
+  {
+    "model": "venues_app.venue",
+    "pk": 4,
+    "fields": {
+      "name": "Testowa Nazwa Restauracji IV",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, consequat vel aliquet in, laoreet sit amet orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porttitor velit quam, sagittis hendrerit ex vulputate eu. Praesent in quam augue. Curabitur luctus vitae justo sit amet facilisis.",
+      "image": "media/placeholder.jpeg",
+      "address": "Warszawa, ul. Przykładowa 4"
+    }
+  },
+    {
+    "model": "venues_app.venue",
+    "pk": 5,
+    "fields": {
+      "name": "Testowa Nazwa Restauracji V",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, consequat vel aliquet in, laoreet sit amet orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus porttitor velit quam, sagittis hendrerit ex vulputate eu. Praesent in quam augue. Curabitur luctus vitae justo sit amet facilisis.",
+      "image": "media/placeholder.jpeg",
+      "address": "Warszawa, ul. Przykładowa 5"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$nWBhm4COGGIf$BCRkoudslyuBahNh0j0ORvN9UyOzxxkL/W85BjqF3dU=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "rosz",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-07-21T18:36:50.491Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$nWBhm4COGGIf$BCRkoudslyuBahNh0j0ORvN9UyOzxxkL/W85BjqF3dU=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "maria_przykladowa",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": false,
+      "date_joined": "2020-07-21T18:36:50.491Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$nWBhm4COGGIf$BCRkoudslyuBahNh0j0ORvN9UyOzxxkL/W85BjqF3dU=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jan_przykladowy",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": false,
+      "date_joined": "2020-07-21T18:36:50.491Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$nWBhm4COGGIf$BCRkoudslyuBahNh0j0ORvN9UyOzxxkL/W85BjqF3dU=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "kazimierz_przykladowski",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": false,
+      "date_joined": "2020-07-21T18:36:50.491Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$nWBhm4COGGIf$BCRkoudslyuBahNh0j0ORvN9UyOzxxkL/W85BjqF3dU=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "franciszka_przykladowska",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": false,
+      "date_joined": "2020-07-21T18:36:50.491Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "venues_app.rating",
+    "pk": 1,
+    "fields": {
+      "rate": 2,
+      "user": 2,
+      "venue": 2
+    }
+  },
+  {
+    "model": "venues_app.rating",
+    "pk": 2,
+    "fields": {
+      "rate": 3,
+      "user": 3,
+      "venue": 2
+    }
+  },
+  {
+    "model": "venues_app.rating",
+    "pk": 3,
+    "fields": {
+      "rate": 5,
+      "user": 4,
+      "venue": 2
+    }
+  },
+  {
+    "model": "venues_app.rating",
+    "pk": 3,
+    "fields": {
+      "rate": 4,
+      "user": 4,
+      "venue": 3
+    }
+  },
+  {
+    "model": "venues_app.rating",
+    "pk": 3,
+    "fields": {
+      "rate": 4,
+      "user": 4,
+      "venue": 4
+    }
+  },
+  {
+    "model": "venues_app.rating",
+    "pk": 3,
+    "fields": {
+      "rate": 5,
+      "user": 4,
+      "venue": 4
+    }
+  },
+  {
+    "model": "venues_app.rating",
+    "pk": 4,
+    "fields": {
+      "rate": 1,
+      "user": 2,
+      "venue": 5
+    }
+  },
+  {
+    "model": "venues_app.rating",
+    "pk": 5,
+    "fields": {
+      "rate": 1,
+      "user": 3,
+      "venue": 5
+    }
+  }
+]
