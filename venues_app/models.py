@@ -19,7 +19,8 @@ class Venue(models.Model):
         verbose_name='obraz',
         upload_to='media',
         help_text="Dodaj obrazek o wymiarach 200x200px",
-        null=True)
+        null=False,
+        blank=True)
     avg_rating = RatingManager.avg_rating
     created_at = models.DateTimeField(
         verbose_name='data dodania', default=timezone.now)

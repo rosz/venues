@@ -8,13 +8,15 @@ from django.views.decorators.http import require_POST
 from .models import Venue, Rating
 from .forms import RatingForm
 
+OBJ_PER_PAGE = 3
+
 
 def venues_list(request):
     name = request.GET.get('search_name')
-    if name is not None and len(name) > 2:
+    if name is not None:
         venues = Venue.objects.filter(
             name__icontains=name).order_by('created_at')
-        paginator = Paginator(venues, 3)
+        paginator = Paginator(venues, OBJ_PER_PAGE)
 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -34,10 +36,10 @@ def venues_list(request):
 
 def venue(request, pk):
     name = request.GET.get('search_name')
-    if name is not None and len(name) > 2:
+    if name is not None:
         venues = Venue.objects.filter(
             name__icontains=name).order_by('created_at')
-        paginator = Paginator(venues, 3)
+        paginator = Paginator(venues, OBJ_PER_PAGE)
 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -80,6 +82,7 @@ def register_request(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.info(request, "Zarejestowano")
             return redirect("venues_list")
 
         else:
@@ -87,7 +90,7 @@ def register_request(request):
                 print(form.error_messages[msg])
             return render(request, "venues_app/register.html", {"form": form})
 
-    form = UserCreationForm
+    form = UserCreationForm()
     return render(request, "venues_app/register.html", {"form": form})
 
 

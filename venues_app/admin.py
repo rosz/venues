@@ -19,11 +19,6 @@ class RatingAdmin(admin.ModelAdmin):
     ordering = ('user',)
     readonly_fields = ('user', 'venue', 'rate')
 
-    def save_model(self, request, obj, form, change):
-        if not change:
-            obj.user = request.user
-        obj.save()
-
     def has_change_permission(self, request, obj=None):
         return False
 
