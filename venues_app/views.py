@@ -12,17 +12,6 @@ OBJ_PER_PAGE = 3
 
 
 def venues_list(request):
-    name = request.GET.get('search_name')
-    if name is not None:
-        venues = Venue.objects.filter(
-            name__icontains=name).order_by('created_at')
-        paginator = Paginator(venues, OBJ_PER_PAGE)
-
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        if page_obj is not None:
-            return render(request, 'venues_app/venues_list.html',
-                          {'page_obj': page_obj})
 
     venues = Venue.objects.order_by('created_at')
     paginator = Paginator(venues, 3)
@@ -34,7 +23,7 @@ def venues_list(request):
                   {'page_obj': page_obj})
 
 
-def venue(request, pk):
+def search(request):
     name = request.GET.get('search_name')
     if name is not None:
         venues = Venue.objects.filter(
@@ -47,6 +36,8 @@ def venue(request, pk):
             return render(request, 'venues_app/venues_list.html',
                           {'page_obj': page_obj})
 
+
+def venue(request, pk):
     venue = get_object_or_404(Venue, pk=pk)
     return render(request, 'venues_app/venue.html', {'venue': venue})
 
@@ -60,38 +51,38 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Zalogowano jako {username}")
+                messages.info(request, f'Zalogowano jako {username}')
                 return redirect('venues_list')
             else:
-                messages.error(request, "Błędna nazwa lub hasło")
+                messages.error(request, 'Błędna nazwa lub hasło')
         else:
-            messages.error(request, "Błędna nazwa lub hasło")
+            messages.error(request, 'Błędna nazwa lub hasło')
     form = AuthenticationForm()
     return render(request, 'venues_app/login.html', {'form': form})
 
 
 def logout_request(request):
     logout(request)
-    messages.info(request, "Wylogowano")
-    return redirect("venues_list")
+    messages.info(request, 'Wylogowano')
+    return redirect('venues_list')
 
 
 def register_request(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.info(request, "Zarejestowano")
-            return redirect("venues_list")
+            print(messages.info(request, 'Zarejestowano'))
+            return redirect('venues_list')
 
         else:
             for msg in form.error_messages:
                 print(form.error_messages[msg])
-            return render(request, "venues_app/register.html", {"form": form})
+            return render(request, 'venues_app/register.html', {'form': form})
 
     form = UserCreationForm()
-    return render(request, "venues_app/register.html", {"form": form})
+    return render(request, 'venues_app/register.html', {'form': form})
 
 
 @require_POST
@@ -104,6 +95,6 @@ def rate(request, pk):
 
     if form.is_valid():
         form.save()
-        return redirect("venues_list")
+        return redirect('venues_list')
     else:
-        return redirect("venues_list")
+        return redirect('venues_list')

@@ -5,9 +5,9 @@ from django.utils import timezone
 class RatingManager(models.Manager):
     def avg_rating(self):
         avg = Venue.objects.filter(id=self.id).aggregate(
-            avg=models.Avg('rating__rate')).get("avg")
+            avg=models.Avg('rating__rate')).get('avg')
         if avg is None:
-            return "Jeszcze nikt nie ocenił."
+            return 'Jeszcze nikt nie ocenił.'
         return round(avg, 1)
 
 
@@ -18,7 +18,7 @@ class Venue(models.Model):
     image = models.ImageField(
         verbose_name='obraz',
         upload_to='media',
-        help_text="Dodaj obrazek o wymiarach 200x200px",
+        help_text='Dodaj obrazek o wymiarach 200x200px',
         null=False,
         blank=True)
     avg_rating = RatingManager.avg_rating

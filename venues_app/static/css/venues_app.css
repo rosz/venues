@@ -74,3 +74,11 @@ button a, a:visited {
     color: #ffffff;
     font-family: 'Lobster', cursive;
 }
+
+.auth_msg {
+    color: #ffffff;
+    font-family: 'Lobster', cursive;
+    font-size: 14px;
+    margin-left: 15px;
+
+}

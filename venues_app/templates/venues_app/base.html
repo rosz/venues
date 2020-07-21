@@ -2,24 +2,24 @@
 <html>
     <head>
         <title>Venues App</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{% static 'css/venues_app.css' %}">
+        <link href="{% static 'css/venues_app.css' %}" rel="stylesheet">
     </head>
 <body>
     <div class="page-header">
         <h1><a href="/">Przeglądaj i oceniaj restauracje</a></h1>
         <div>
-            <form id="search_name" method="get"
-                  action="">
+            <form action="{% url 'search' %}" id="search_name"
+                  method="get">
                 {% csrf_token %}
                 <table class="search-table">
                     <tr>
                         <td><label for="venue_name">Wyszukaj po nazwie</label>
                         </td>
-                        <td><input id="venue_name" name="search_name"
-                                   type="text" class="form-control">
+                        <td><input class="form-control" id="venue_name"
+                                   name="search_name" type="text">
                         </td>
                     </tr>
                 </table>
@@ -27,14 +27,21 @@
         </div>
         <div>
             {% if not user.is_authenticated %}
-                <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit"><a href="{% url 'login' %}">Zaloguj</a></button>
-                <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit"><a href="{% url 'register' %}">Zarejestruj</a></button>
+                <button class="btn btn-outline-info" style="background-color:#C25100; color:#ffffff" type="submit"><a href="{% url 'login' %}">Zaloguj</a></button>
+                <button class="btn btn-outline-info" style="background-color:#C25100; color:#ffffff" type="submit"><a href="{% url 'register' %}">Zarejestruj</a></button>
 
             {% endif %}
             {% if user.is_authenticated %}
-                <button style="background-color:#C25100; color:#ffffff" class="btn btn-outline-info" type="submit"><a href="{% url 'logout' %}">Wyloguj</a></button>
+                <button class="btn btn-outline-info" style="background-color:#C25100; color:#ffffff" type="submit"><a href="{% url 'logout' %}">Wyloguj</a></button>
             {% endif %}
 
+            {% if messages %}
+                <div class="auth_msg">
+                {% for message in messages %}
+                        {{ message|safe }}
+                {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
     <div class="content container">
