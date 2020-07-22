@@ -26,8 +26,8 @@ class TestRating(TestCase):
 
         expected = Venue.objects.filter(
             id=self.restaurant.id).first().avg_rating
-        self.assertEqual(expected, round(
-            sum(self.rates) / len(self.rates), 1))
+        self.assertAlmostEqual(expected,
+            sum(self.rates) / len(self.rates), 1)
 
     def test_rating_request(self):
         self.client.login(username='Test Name 1', password='testpassword123')
