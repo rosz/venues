@@ -145,7 +145,7 @@
     "fields": {
       "rate": 2,
       "user": 2,
-      "venue": 2
+      "venue": 1
     }
   },
   {
@@ -154,7 +154,7 @@
     "fields": {
       "rate": 3,
       "user": 3,
-      "venue": 2
+      "venue": 1
     }
   },
   {
@@ -163,7 +163,7 @@
     "fields": {
       "rate": 5,
       "user": 4,
-      "venue": 2
+      "venue": 1
     }
   },
   {
