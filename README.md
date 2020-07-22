@@ -1,4 +1,4 @@
-##Installation
+## Installation
 
 Clone this repo. Change current directory to `/venues`. Run virtual env and install dependencies from requirements.txt:
 
