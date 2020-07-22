@@ -6,63 +6,100 @@ from venues_app.models import Venue, Rating
 class TestRating(TestCase):
     rates = (1, 3, 5)
 
+    def setUp(self):
+        self.client = Client()
+        self.restaurant = Venue.objects.create(
+            name='Test Restaurant 1', description='test description')
+        self.user_1st = User.objects.create_user(
+            username='Test Name 1', password='testpassword123')
+        self.user_2st = User.objects.create_user(
+            username='Test Name 2', password='testpassword123')
+        self.user_3st = User.objects.create_user(
+            username='Test Name 3', password='testpassword123')
+
     def test_avg_rating(self):
         test_restaurant = Venue.objects.create(
-            name='Test Restaurant 1', description="test description")
-        test_user_1 = User.objects.create_user(username="Test Name 1")
-        test_user_2 = User.objects.create_user(username="Test Name 2")
-        test_user_3 = User.objects.create_user(username="Test Name 3")
+            name='Test Restaurant 1', description='test description')
 
         Rating.objects.create(
-            rate=self.rates[0], venue=test_restaurant, user=test_user_1)
+            rate=self.rates[0], venue=test_restaurant, user=self.user_1st)
         Rating.objects.create(
-            rate=self.rates[1], venue=test_restaurant, user=test_user_2)
+            rate=self.rates[1], venue=test_restaurant, user=self.user_2st)
         Rating.objects.create(
-            rate=self.rates[2], venue=test_restaurant, user=test_user_3)
+            rate=self.rates[2], venue=test_restaurant, user=self.user_3st)
 
         expected = Venue.objects.filter(id=test_restaurant.id).first()
         self.assertEqual(expected.avg_rating, round(
             sum(self.rates) / len(self.rates), 1))
 
     def test_rating_request(self):
-        rate_1st = 3
-        rate_2nd = 5
-        test_restaurant = Venue.objects.create(
-            name='Test Restaurant 1', description="test description")
-        test_user = User.objects.create_user(username="Test Name 1")
-        # test_rating = Rating.objects.create(
-        #     rate=rate_1st, venue=test_restaurant, user=test_user)
+        rating_1st = 5
+        rating_2nd = 3
 
-        response = self.client.post(path=f'/venue/{test_restaurant.id}/rate')
-        self.assertEqual(response.status_code, 200)
+        self.client.login(username='Test Name 1', password='testpassword123')
+        self.client.post(
+            path=f'/venue/{self.restaurant.id}/rate',
+            data={
+                'rate': rating_1st})
+        rating_from_db = Rating.objects.filter(
+            venue=self.restaurant).first().rate
+        self.assertEqual(rating_from_db, rating_1st)
+
+        # override rating for the same restaurant
+        self.client.post(
+            path=f'/venue/{self.restaurant.id}/rate',
+            data={
+                'rate': rating_2nd})
+        rating_from_db = Rating.objects.filter(
+            venue=self.restaurant).first().rate
+        self.assertEqual(rating_from_db, rating_2nd)
 
 
 class TestFetching(TestCase):
-    client = Client()
-
-    def test_venue_fetching(self):
-        test_restaurant = Venue.objects.create(
-            name='Test Restaurant 1',
-            description="test description",
+    def setUp(self):
+        self.client = Client()
+        self.restaurant = Venue.objects.create(
+            name='Fancy Test Name',
+            description='test description',
             image='media/',
             address='Test Address'
         )
-        response = self.client.post(path=f'/venue/{test_restaurant.id}')
+        self.user = User.objects.create_user(
+            username='Test Name 1', password='testpassword123')
+
+    def test_venue_fetching(self):
+        response = self.client.post(path=f'/venue/{self.restaurant.id}')
         self.assertEqual(response.status_code, 200)
 
         unexisting_id = 10
         response = self.client.post(path=f'/venue/{unexisting_id}')
         self.assertEqual(response.status_code, 404)
 
+    def test_search(self):
+        response = self.client.get(path=f'/search',
+                                   data={'search_name': self.restaurant.name[11:]})
+        self.assertContains(
+            response=response,
+            text=self.restaurant.name,
+            status_code=200)
 
-class TestUserAuth(TestCase):
-    client = Client()
+        response = self.client.get(
+            path=f'/search', data={'search_name': self.restaurant.name[7:10]})
+        self.assertContains(
+            response=response,
+            text=self.restaurant.name,
+            status_code=200)
 
-    def test_register(self):
-        pass
+        response = self.client.get(path=f'/search',
+                                   data={'search_name': self.restaurant.name[:5]})
+        self.assertContains(
+            response=response,
+            text=self.restaurant.name,
+            status_code=200)
 
-    def test_login(self):
-        pass
-
-    def test_logout(self):
-        pass
+        response = self.client.get(path=f'/search',
+                                   data={'search_name': 'unextisting name'})
+        self.assertNotContains(
+            response=response,
+            text=self.restaurant.name,
+            status_code=200)
