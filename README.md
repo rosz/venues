@@ -20,5 +20,5 @@ Run app by standard Django command:
 ```
 python manage.py runserver
 ```
-Local servers runs at `http://127.0.0.1:8000/`
+Local server runs at `http://127.0.0.1:8000/`
  
