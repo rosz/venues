@@ -2,15 +2,6 @@ from django.db import models
 from django.utils import timezone
 
 
-class RatingManager(models.Manager):
-    def avg_rating(self):
-        avg = Venue.objects.filter(id=self.id).aggregate(
-            avg=models.Avg('rating__rate')).get('avg')
-        if avg is None:
-            return 'Jeszcze nikt nie ocenił.'
-        return round(avg, 1)
-
-
 class Venue(models.Model):
     name = models.CharField(max_length=100, verbose_name='nazwa')
     description = models.TextField(verbose_name='opis')
@@ -21,12 +12,17 @@ class Venue(models.Model):
         help_text='Dodaj obrazek o wymiarach 200x200px',
         null=False,
         blank=True)
-    avg_rating = RatingManager.avg_rating
     created_at = models.DateTimeField(
         verbose_name='data dodania', default=timezone.now)
 
     def __str__(self):
         return f'{self.name} @ {self.address}'
+
+    @property
+    def avg_rating(self):
+        result = Rating.objects.filter(venue=self).aggregate(
+            avg=models.Avg('rate')).get('avg')
+        return result if result else "Jeszcze nikt nie ocenił"
 
     class Meta:
         verbose_name = 'Lokal'

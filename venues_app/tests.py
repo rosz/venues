@@ -21,8 +21,20 @@ class TestRating(TestCase):
             rate=self.rates[2], venue=test_restaurant, user=test_user_3)
 
         expected = Venue.objects.filter(id=test_restaurant.id).first()
-        self.assertEqual(expected.avg_rating(), round(
+        self.assertEqual(expected.avg_rating, round(
             sum(self.rates) / len(self.rates), 1))
+
+    def test_rating_request(self):
+        rate_1st = 3
+        rate_2nd = 5
+        test_restaurant = Venue.objects.create(
+            name='Test Restaurant 1', description="test description")
+        test_user = User.objects.create_user(username="Test Name 1")
+        # test_rating = Rating.objects.create(
+        #     rate=rate_1st, venue=test_restaurant, user=test_user)
+
+        response = self.client.post(path=f'/venue/{test_restaurant.id}/rate')
+        self.assertEqual(response.status_code, 200)
 
 
 class TestFetching(TestCase):
