@@ -4,9 +4,8 @@ from venues_app.models import Venue, Rating
 
 
 class TestRating(TestCase):
-    rates = (1, 3, 5)
-
     def setUp(self):
+        self.rates = (1, 3, 5)
         self.client = Client()
         self.restaurant = Venue.objects.create(
             name='Test Restaurant 1', description='test description')
@@ -18,41 +17,36 @@ class TestRating(TestCase):
             username='Test Name 3', password='testpassword123')
 
     def test_avg_rating(self):
-        test_restaurant = Venue.objects.create(
-            name='Test Restaurant 1', description='test description')
+        Rating.objects.create(
+            rate=self.rates[0], venue=self.restaurant, user=self.user_1st)
+        Rating.objects.create(
+            rate=self.rates[1], venue=self.restaurant, user=self.user_2st)
+        Rating.objects.create(
+            rate=self.rates[2], venue=self.restaurant, user=self.user_3st)
 
-        Rating.objects.create(
-            rate=self.rates[0], venue=test_restaurant, user=self.user_1st)
-        Rating.objects.create(
-            rate=self.rates[1], venue=test_restaurant, user=self.user_2st)
-        Rating.objects.create(
-            rate=self.rates[2], venue=test_restaurant, user=self.user_3st)
-
-        expected = Venue.objects.filter(id=test_restaurant.id).first()
-        self.assertEqual(expected.avg_rating, round(
+        expected = Venue.objects.filter(
+            id=self.restaurant.id).first().avg_rating
+        self.assertEqual(expected, round(
             sum(self.rates) / len(self.rates), 1))
 
     def test_rating_request(self):
-        rating_1st = 5
-        rating_2nd = 3
-
         self.client.login(username='Test Name 1', password='testpassword123')
         self.client.post(
             path=f'/venue/{self.restaurant.id}/rate',
             data={
-                'rate': rating_1st})
+                'rate': self.rates[1]})
         rating_from_db = Rating.objects.filter(
             venue=self.restaurant).first().rate
-        self.assertEqual(rating_from_db, rating_1st)
+        self.assertEqual(rating_from_db, self.rates[1])
 
         # override rating for the same restaurant
         self.client.post(
             path=f'/venue/{self.restaurant.id}/rate',
             data={
-                'rate': rating_2nd})
+                'rate': self.rates[2]})
         rating_from_db = Rating.objects.filter(
             venue=self.restaurant).first().rate
-        self.assertEqual(rating_from_db, rating_2nd)
+        self.assertEqual(rating_from_db, self.rates[2])
 
 
 class TestFetching(TestCase):
