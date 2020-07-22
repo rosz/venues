@@ -73,12 +73,10 @@ def register_request(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            print(messages.info(request, 'Zarejestowano'))
+            messages.info(request, 'Zarejestowano')
             return redirect('venues_list')
 
         else:
-            for msg in form.error_messages:
-                print(form.error_messages[msg])
             return render(request, 'venues_app/register.html', {'form': form})
 
     form = UserCreationForm()
