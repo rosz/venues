@@ -15,7 +15,7 @@ Populate DB by loading data from the fixtures:
 ```
 python manage.py loaddata fixtures/fixtures.json 
 ```
-##Running
+## Running
 Run app by standard Django command:
 ```
 python manage.py runserver
