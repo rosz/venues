@@ -1,6 +1,6 @@
 asgiref==3.2.10
 autopep8==1.5.3
-Django==3.0.7
+Django==3.0.12
 logilab-astng==0.24.3
 logilab-common==1.7.2
 mypy-extensions==0.4.3
